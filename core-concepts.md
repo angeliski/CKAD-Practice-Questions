@@ -109,16 +109,6 @@ kubectl get po nginx -o yaml
 </details>
 
 
-<details><summary>Output the yaml file of the pod you just created without the cluster-specific information</summary>
-<p>
-
-```
-kubectl get po nginx -o yaml --export
-```
-</p>
-</details>
-
-
 <details><summary>Get the complete details of the pod you just created</summary>
 <p>
 
@@ -210,7 +200,7 @@ kubectl get po nginx -o jsonpath='{.spec.containers[].image}{"\n"}'
 kubectl run nginx --image=nginx --restart=Never
 
 // exec into the pod
-kubectl exec -it nginx /bin/sh
+kubectl exec -it nginx -- /bin/sh
 ```
 </p>
 </details>
@@ -221,6 +211,8 @@ kubectl exec -it nginx /bin/sh
 
 ```
 kubectl get po nginx -o wide
+// or
+kubectl get po nginx -o jsonpath='{.status.podIP}{"\n"}'
 ```
 </p>
 </details>
@@ -264,7 +256,7 @@ kubectl run busybox --image=busybox --restart=Never -- /bin/sh -c "sleep 3600"
 kubectl get po nginx -o wide
 
 // check the connection
-kubectl exec -it busybox -- wget -o- <IP Address>
+kubectl exec -it busybox -- wget -qO- <IP Address>
 ```
 </p>
 </details>
